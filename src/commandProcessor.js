@@ -26,21 +26,31 @@ async function get({id}) {
  * Add a film to the catalog
  */
 async function add({title, director, description, runningTime, language}) {
-    // TODO
+    return withDb(async (collection) => {
+        await collection.insert({title, director, description, runningTime, language});
+    });
 }
 
 /**
  * Remove a film by it's ID
  */
 async function remove({id}) {
-    // TODO
+    return withDb(async (collection) => {
+        const result = await collection.remove({_id: new ObjectId(id)});
+        if (result.result.n === 0) {
+            throw new Error(`No film found with ID: ${id}`);
+        }
+    });
 }
 
 /**
  * Get all films in a certain language
  */
 async function getByLanguage({language}) {
-    // TODO
+    return withDb(async (collection) => {
+        const films = await collection.find({language}).toArray();
+        console.log(JSON.stringify(films, null, 4));
+    });
 }
 
 module.exports = {
