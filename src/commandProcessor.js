@@ -25,8 +25,27 @@ async function get({id}) {
 /**
  * Add a film to the catalog
  */
-async function add({title, director, description, runningTime, language}) {
-    // TODO
+async function add(title, director, description, runningTime, language) {
+  return withDb(async (collection) => {
+    collection.insertOne(
+     {
+       "title": title,
+       "directors": director,
+       "description": description,
+       "running_time": runningTime,
+       "language": language
+
+     },
+     {
+      writeConcern: {
+        w: 1,
+        j: true,
+        wtimeout: 0
+      }
+     }
+    )
+  })
+
 }
 
 /**
