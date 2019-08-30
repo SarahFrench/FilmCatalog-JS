@@ -43,12 +43,14 @@ async function main() {
                     type: 'array'
                 })
                 .option('description', {
+                    demandOption: true,
                     type: 'string'
                 })
                 .option('runningTime', {
                     type: 'number'
                 })
                 .option('language', {
+                    demandOption: true,
                     type: 'array'
                 })
                 .strict(true),
