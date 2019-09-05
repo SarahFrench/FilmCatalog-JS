@@ -25,26 +25,32 @@ async function get({id}) {
 /**
  * Add a film to the catalog
  */
-async function add(title, director, description, runningTime, language) {
-  return withDb(async (collection) => {
-    collection.insertOne(
-     {
-       "title": title,
-       "directors": director,
-       "description": description,
-       "running_time": runningTime,
-       "language": language
+async function add({title, directors, description, running_time, languages}) {
+  try {
+    return withDb(async (collection) => {
+      const create = await collection.insertOne(
+       {
+         "title": title,
+         "directors": directors,
+         "description": description,
+         "running_time": running_time,
+         "languages": languages
 
-     },
-     {
-      writeConcern: {
-        w: 1,
-        j: true,
-        wtimeout: 0
-      }
-     }
-    )
-  })
+       },
+       {
+        writeConcern: {
+          w: 1,
+          j: true,
+          wtimeout: 0
+        }
+       }
+      )
+      return create;
+    })
+
+  } catch(err){
+    console.log(err)
+;  }
 
 }
 

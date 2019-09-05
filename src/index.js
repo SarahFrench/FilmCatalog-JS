@@ -39,17 +39,17 @@ async function main() {
                     demandOption: true,
                     type: 'string'
                 })
-                .option('director', {
+                .option('directors', {
                     type: 'array'
                 })
                 .option('description', {
                     demandOption: true,
                     type: 'string'
                 })
-                .option('runningTime', {
+                .option('running_time', {
                     type: 'number'
                 })
-                .option('language', {
+                .option('languages', {
                     demandOption: true,
                     type: 'array'
                 })
