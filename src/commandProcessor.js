@@ -45,9 +45,9 @@ async function add({title, directors, description, running_time, languages}) {
         }
        }
       )
-      return create;
+      console.log('\nSuccess! Added a document with these values:');
+      console.log(`title: ${create.ops[0].title}\ndirectors: ${create.ops[0].directors}\ndescription: ${create.ops[0].description}\nrunning time: ${create.ops[0].running_time}\nlanguages: ${create.ops[0].languages}`)
     })
-
   } catch(err){
     console.log(err)
 ;  }
