@@ -77,9 +77,12 @@ async function remove({id}) {
 async function getByLanguage({language}) {
   try {
     return withDb(async (collection) => {
-      const response = collection.find({languages:{$eq: language}});
-      // let response = await collection.find({"languages": languages});
-      console.log(response);
+      const films = await collection.find({languages:{$eq: language}}).toArray();
+      console.log("\nSuccess!");
+      console.log(`\n${films.length} film(s) are available in ${language}:`);
+      films.forEach(film => {
+        console.log(`\t${film.title}: ${film.description}\n`);
+      })
 
     })
   } catch(err) {
