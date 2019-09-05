@@ -28,7 +28,7 @@ async function get({id}) {
 async function add({title, directors, description, running_time, languages}) {
   try {
     return withDb(async (collection) => {
-      const create = await collection.insertOne(
+      const response = await collection.insertOne(
        {
          "title": title,
          "directors": directors,
@@ -44,9 +44,9 @@ async function add({title, directors, description, running_time, languages}) {
           wtimeout: 0
         }
        }
-      )
+     );
       console.log('\nSuccess! Added a document with these values:');
-      console.log(`title: ${create.ops[0].title}\ndirectors: ${create.ops[0].directors}\ndescription: ${create.ops[0].description}\nrunning time: ${create.ops[0].running_time}\nlanguages: ${create.ops[0].languages}`)
+      console.log(`title: ${response.ops[0].title}\ndirectors: ${response.ops[0].directors}\ndescription: ${response.ops[0].description}\nrunning time: ${response.ops[0].running_time}\nlanguages: ${response.ops[0].languages}`)
     })
   } catch(err){
     console.log(err)
@@ -58,7 +58,17 @@ async function add({title, directors, description, running_time, languages}) {
  * Remove a film by it's ID
  */
 async function remove({id}) {
-    // TODO
+  try {
+    return withDb(async (collection) => {
+      const response = await collection.deleteOne(
+        { "_id" : ObjectId(id) }
+      );
+      console.log('\nSuccess!');
+      console.log(`${response.deletedCount} record(s) were deleted with id = ${id}`);
+    })
+  } catch(err) {
+    console.log(err)
+  }
 }
 
 /**
